@@ -1,0 +1,24 @@
+:root {
+    --text: #EDE5F0;
+}
+
+body {
+    margin: 50px 0;
+    min-height: 100vh;
+    background: linear-gradient(
+        145deg,
+        #0C0A10,
+        #19121F,
+        #100D16
+    );
+    background-repeat: no-repeat;
+    color: var(--text);
+    font-family: -apple-system, "Cinzel", serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
