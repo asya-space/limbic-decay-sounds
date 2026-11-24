@@ -8,9 +8,9 @@ import SoundsAddForm from '../sounds-add-form/sounds-add-form';
 function App() {
 // типа данные с сервера
     const data = [
-        {name: 'Lili', listening: 15, increase: false},
-        {name: 'Metro-II017', listening: 20, increase: false},
-        {name: 'message 2.0', listening: 67, increase: true}
+        {name: 'Lili', listening: 15, increase: false, id: 1},
+        {name: 'Metro-II017', listening: 20, increase: false, id: 2},
+        {name: 'message 2.0', listening: 67, increase: true, id: 3}
     ];
 
     return (
