@@ -13,9 +13,9 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
-                { name: 'Lili', listened: 15, increase: false, id: 1 },
-                { name: 'Metro-II017', listened: 20, increase: false, id: 2 },
-                { name: 'message 2.0', listened: 67, increase: true, id: 3 }
+                { name: 'Lili', listened: 15, increase: false, rise: true, id: 1 },
+                { name: 'Metro-II017', listened: 20, increase: false, rise: false, id: 2 },
+                { name: 'message 2.0', listened: 67, increase: true, rise: false, id: 3 }
             ]
         }
     }
@@ -34,11 +34,27 @@ class App extends Component {
         }))
     }
 
+    onToggleProp = (id, prop) => {
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, [prop]: !item[prop]}
+                }
+                return item;
+            })
+        }))
+    }
+
     render() {
         const { data } = this.state;
+
+        const tracks = this.state.data.length
+	    const increased = this.state.data
+                        .filter(item => item.increase === true).length;
         return (
             <div className="app">
-                <AppInfo />
+                <AppInfo tracks={tracks}
+                         increased={increased} />
 
                 <div className="search-panel">
                     <SearchPanel />
@@ -46,7 +62,8 @@ class App extends Component {
                 </div>
 
                 <SoundsList data={data}
-                onDelete={this.deleteItem} />
+                onDelete={this.deleteItem}
+                onToggleProp={this.onToggleProp} />
 
                 <SoundsAddForm 
                 data={this.state.data} 

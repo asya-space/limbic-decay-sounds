@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import './sounds-list-item.css';
 import {
     FaMusic,
@@ -8,28 +7,11 @@ import {
     FaStar
 } from "react-icons/fa";
 
-class SoundsListItem extends Component {
-    constructor(props)  {
-        super(props);
-        this.state = {
-            increase: false,
-            showIcon: false
-        }
-    }
-
-    onIncrease = () => {
-        this.setState(({increase, showIcon}) => ({
-            increase: !increase,
-            showIcon: !showIcon
-        }));
-    }
-
-    render() {
-        const {name, listened, onDelete } = this.props;
-        const {increase, showIcon} = this.state;
+const SoundsListItem = (props) => {
+        const {name, listened, onDelete, onToggleProp, increase } = props;
         let classNames = "list-group-item d-flex justify-content-between";
         if (increase === true) {
-            classNames += ' increase fa-star ';
+            classNames += ' increase like ';
         }
 
         return (
@@ -39,28 +21,28 @@ class SoundsListItem extends Component {
                     className="list-group-item-input" 
                     defaultValue={listened + ' times'}/>
                 <div className="d-flex justify-content-center aligh-items-center">
-                    <button type="button" className="btn-play btn-sm">
+                    <button 
+                    type="button" 
+                    className="btn-play btn-sm">
                         <i><FaPlay /></i>
                     </button>
                     
-                    <button type="button" className="btn-trash btn-sm"
-                    onClick={onDelete}>
+                    <button 
+                        type="button" 
+                        className="btn-trash btn-sm"
+                        onClick={onDelete}>
                         <i><FaTrash/></i>
                     </button>
-                    <button type="button" className="btn-heart btn-sm"
-                    onClick={this.onIncrease} // увеличение прослушиваемости
-                    >
-                        <i onClick={this.showIcon}><FaHeart/></i> 
+                    <button 
+                        type="button" 
+                        className="btn-heart btn-sm" 
+                        data-toggle="increase" onClick={onToggleProp}>
+                        <i><FaHeart/></i> 
                     </button>
-                    {showIcon 
-                        && <button type="button" className="btn-star btn-sm">
-                            <i><FaStar /></i>
-                        </button>}
+                    <i className="fa-star"><FaStar/></i>
                 </div>
             </li>
         )
     }
-    
-}
 
 export default SoundsListItem;
