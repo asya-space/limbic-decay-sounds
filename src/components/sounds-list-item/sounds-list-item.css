@@ -76,13 +76,14 @@
     color: #e09f3e;
 }
 
-/*
-    color: #e5383b; red color
-*/
-  
-.list-group-item.increase .btn-star {
+.list-group-item .btn-heart {
     color: #aeaeae;
 }
+
+.list-group-item.increase .btn-heart {
+    color: #e5383b;
+}
+
 
 .list-group-item:hover {
     transform: translateY(-2px);
