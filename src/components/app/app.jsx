@@ -16,7 +16,9 @@ class App extends Component {
                 { name: 'Lili', listened: 15, increase: false, rise: true, id: 1 },
                 { name: 'Metro-II017', listened: 20, increase: false, rise: false, id: 2 },
                 { name: 'message 2.0', listened: 67, increase: true, rise: false, id: 3 }
-            ]
+            ],
+            term: '',
+            faveFilter: 'all'
         }
     }
    
@@ -45,28 +47,55 @@ class App extends Component {
         }))
     }
 
+    searchSound = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+        return items.filter(track => {
+            return track.name.indexOf(term) > -1
+        })
+    }
+
+    onUpdateSearch = (term) => { 
+        this.setState({term: term});
+    }
+
+    onSearchByFave = (items, faveFilter) => {
+        if (faveFilter === 'fave') {
+            return items.filter(track => track.increase === true);
+        }
+        return items;
+    }
+    
+    onUpdateFave = (faveFilter) => {
+        this.setState({faveFilter});
+    }
+
     render() {
-        const { data } = this.state;
+        const { data, term, faveFilter } = this.state;
 
         const tracks = this.state.data.length
 	    const increased = this.state.data
                         .filter(item => item.increase === true).length;
+        
+        const visibleData = this.onSearchByFave(this.searchSound(data, term), faveFilter);
+
         return (
             <div className="app">
                 <AppInfo tracks={tracks}
                          increased={increased} />
 
                 <div className="search-panel">
-                    <SearchPanel />
-                    <AppFilter />
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch} />
+                    <AppFilter
+                    onUpdateFave={this.onUpdateFave} />
                 </div>
-
-                <SoundsList data={data}
+                <SoundsList data={visibleData}
                 onDelete={this.deleteItem}
                 onToggleProp={this.onToggleProp} />
 
                 <SoundsAddForm 
-                data={this.state.data} 
+                data={data} 
                 onAdd={this.addItem} /> 
             </div>
         );

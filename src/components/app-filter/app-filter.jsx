@@ -1,22 +1,24 @@
 import './app-filter.css';
 
-const AppFilter = () => {
+const AppFilter = (props) =>  {
     return (
         <div className="btn-group">
             <button 
                 className="btn btn-light" 
-                type="button">
+                type="button"
+                onClick={() => props.onUpdateFave('all')}>
                 All sounds
             </button>
             <button 
                 className="btn btn-outline-light" 
-                type="button">
+                type="button"
+                onClick={() => props.onUpdateFave('fave')}>
                 Favorites
             </button>
             <button 
                 className="btn btn-outline-light" 
                 type="button">
-                Quantity of listens
+                Listened more 15
             </button>
         </div>
     )
